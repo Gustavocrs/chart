@@ -21,7 +21,7 @@ export default function Charts() {
   const [typeSpan, setTypeSpan] = useState([]);
   const [typeData, setTypeData] = useState([]);
   const [typeStop, setTypeStop] = useState([]);
-  const [typeAllData, setTypeAllData] = useState([]);
+  // const [typeAllData, setTypeAllData] = useState([]);
 
   let data = [
     {
@@ -83,8 +83,8 @@ export default function Charts() {
           min_response_time: dataPoints[i].min_response_time,
           max_response_time: dataPoints[i].max_response_time,
         };
-        // setTypeData(...[configData]);
-        console.log(configData);
+        setTypeData(...[configData]);
+        // console.log(configData);
         console.log(typeData);
       } else if (dataPoints[i].type === "stop") {
         let configStop = {
@@ -101,6 +101,7 @@ export default function Charts() {
   function GenerateChart() {
     Converter();
     DataFilterType();
+    console.log(text)
   }
 
   return (
