@@ -62,8 +62,8 @@ export default function Charts() {
           group: dataPoints[i].group,
         };
         setTypeStart(...[configStart]);
-        console.log(configStart);
-        // console.log(typeStart);
+        // console.log(configStart);
+        console.log(typeStart);
       } else if (dataPoints[i].type === "span") {
         let configSpan = {
           type: dataPoints[i].type,
@@ -72,8 +72,8 @@ export default function Charts() {
           end: dataPoints[i].end,
         };
         setTypeSpan(...[configSpan]);
-        console.log(configSpan);
-        // console.log(typeSpan);
+        // console.log(configSpan);
+        console.log(typeSpan);
       } else if (dataPoints[i].type === "data") {
         let configData = {
           type: dataPoints[i].type,
@@ -83,17 +83,17 @@ export default function Charts() {
           min_response_time: dataPoints[i].min_response_time,
           max_response_time: dataPoints[i].max_response_time,
         };
-        setTypeData(...[configData]);
-        // console.log(typeData);
+        // setTypeData(...[configData]);
         console.log(configData);
+        console.log(typeData);
       } else if (dataPoints[i].type === "stop") {
         let configStop = {
           type: dataPoints[i].type,
           timestamp: dataPoints[i].timestamp,
         };
         setTypeStop(...[configStop]);
-        // console.log(typeStop);
-        console.log(configStop);
+        // console.log(configStop);
+        console.log(typeStop);
       }
     }
   }
