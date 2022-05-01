@@ -5,7 +5,7 @@ import Charts from './components/Charts'
 function App() {
   return (
     <div className="App">
-      {/* <Login /> */}
+      <Login />
       <Charts/>
     </div>
   )
