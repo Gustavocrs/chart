@@ -15,13 +15,13 @@ import Button from "../Button";
 import TextArea from "../TextArea";
 
 export default function Charts() {
-  // const [text, setText] = useState([]);
+  const [text, setText] = useState([]);
   const [dataPoints, setDataPoints] = useState([]);
-  // const [typeStart, setTypeStart] = useState([]);
-  // const [typeSpan, setTypeSpan] = useState([]);
-  // const [typeData, setTypeData] = useState([]);
-  // const [typeStop, setTypeStop] = useState([]);
-  // const [typeAllData, setTypeAllData] = useState([]);
+  const [typeStart, setTypeStart] = useState([]);
+  const [typeSpan, setTypeSpan] = useState([]);
+  const [typeData, setTypeData] = useState([]);
+  const [typeStop, setTypeStop] = useState([]);
+  const [typeAllData, setTypeAllData] = useState([]);
 
   let data = [
     {
