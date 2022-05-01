@@ -15,13 +15,13 @@ import Button from "../Button";
 import TextArea from "../TextArea";
 
 export default function Charts() {
-  const [text, setText] = useState([]);
+  // const [text, setText] = useState([]);
   const [dataPoints, setDataPoints] = useState([]);
-  const [typeStart, setTypeStart] = useState([]);
-  const [typeSpan, setTypeSpan] = useState([]);
-  const [typeData, setTypeData] = useState([]);
-  const [typeStop, setTypeStop] = useState([]);
-  const [typeAllData, setTypeAllData] = useState([]);
+  // const [typeStart, setTypeStart] = useState([]);
+  // const [typeSpan, setTypeSpan] = useState([]);
+  // const [typeData, setTypeData] = useState([]);
+  // const [typeStop, setTypeStop] = useState([]);
+  // const [typeAllData, setTypeAllData] = useState([]);
 
   let data = [
     {
@@ -107,35 +107,35 @@ export default function Charts() {
     <div className="container">
       <h1>Gustavo Silva's Challenge</h1>
       <TextArea value={valor} onChange={(e) => setText(e.target.value)} />
+      <ResponsiveContainer>
+        <LineChart
+          width={600}
+          height={300}
+          data={data}
+          margin={{ top: 10, right: 20, left: 10, bottom: 5 }}
+        >
+          <XAxis dataKey="name" type="number" />
+          <YAxis dataKey="name" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <Tooltip />
 
-      <LineChart
-        width={600}
-        height={300}
-        data={data}
-        margin={{ top: 10, right: 20, left: 10, bottom: 5 }}
-      >
-        <XAxis dataKey="name" type="number" />
-        <YAxis dataKey="name" />
-        <CartesianGrid strokeDasharray="3 3" vertical={false} />
-        <Tooltip />
+          {data.map((val) => (
+            <Line
+              dataKey="value"
+              data={val.valor}
+              name={val.name}
+              key={val.name}
+            />
+          ))}
 
-        {data.map((val) => (
-          <Line
-            dataKey="value"
-            data={val.valor}
-            name={val.name}
-            key={val.name}
+          <Legend
+            layout="vertical"
+            verticalAlign="middle"
+            align="right"
+            wrapperStyle={{ right: -80 }}
           />
-        ))}
-
-        <Legend
-          layout="vertical"
-          verticalAlign="middle"
-          align="right"
-          wrapperStyle={{ right: -80 }}
-        />
-      </LineChart>
-
+        </LineChart>
+      </ResponsiveContainer>
       <div>
         <Button name="Generate Chart" onClick={GenerateChart} />
       </div>
