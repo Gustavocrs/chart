@@ -1,14 +1,17 @@
-import "./Charts.css";
-import {
-  LineChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  Line,
-  ResponsiveContainer,
-} from "recharts";
+// import "./Charts.css";
+// import {
+//   LineChart,
+//   CartesianGrid,
+//   XAxis,
+//   YAxis,
+//   Tooltip,
+//   Legend,
+//   Line,
+//   ResponsiveContainer,
+// } from "recharts";
+
+import { Chart } from "react-google-charts";
+
 import { useState } from "react";
 import JSON5 from "json5";
 import Button from "../Button";
@@ -21,18 +24,11 @@ export default function Charts() {
   const [typeSpan, setTypeSpan] = useState([]);
   const [typeData, setTypeData] = useState([]);
   const [typeStop, setTypeStop] = useState([]);
-  // const [typeAllData, setTypeAllData] = useState([]);
 
-  let data = [
-    {
-      name: "Valor 1",
-      valor: 40,
-    },
-    {
-      name: "Valor 2",
-      valor: 30,
-    },
-  ];
+  let configStart,
+    configSpan,
+    configData,
+    configStop = [];
 
   const valor = `{type: 'start', timestamp: 1519862400000,select: ['min_response_time', 'max_response_time'],group: ['os', 'browser']}
     {type: 'span', timestamp: 1519862400000, begin: 1519862400000, end: 1519862460000}
@@ -49,33 +45,29 @@ export default function Charts() {
   function Converter() {
     let convertedCode = "[" + valor.split("\n") + "]";
     convertedCode = JSON5.parse(convertedCode);
-    setDataPoints(...[convertedCode]);
+    setDataPoints(convertedCode);
   }
 
   function DataFilterType() {
     for (let i = 0; i < dataPoints.length; i++) {
       if (dataPoints[i].type === "start") {
-        let configStart = {
+        configStart = {
           type: dataPoints[i].type,
           timestamp: dataPoints[i].timestamp,
           select: [dataPoints[i].select],
           group: dataPoints[i].group,
         };
-        setTypeStart(...[configStart]);
         // console.log(configStart);
-        console.log(typeStart);
       } else if (dataPoints[i].type === "span") {
-        let configSpan = {
+        configSpan = {
           type: dataPoints[i].type,
           timestamp: dataPoints[i].timestamp,
           begin: dataPoints[i].begin,
           end: dataPoints[i].end,
         };
-        setTypeSpan(...[configSpan]);
         // console.log(configSpan);
-        console.log(typeSpan);
       } else if (dataPoints[i].type === "data") {
-        let configData = {
+        configData = {
           type: dataPoints[i].type,
           timestamp: dataPoints[i].timestamp,
           os: dataPoints[i].os,
@@ -83,32 +75,53 @@ export default function Charts() {
           min_response_time: dataPoints[i].min_response_time,
           max_response_time: dataPoints[i].max_response_time,
         };
-        setTypeData(...[configData]);
         // console.log(configData);
-        console.log(typeData);
       } else if (dataPoints[i].type === "stop") {
-        let configStop = {
+        configStop = {
           type: dataPoints[i].type,
           timestamp: dataPoints[i].timestamp,
         };
-        setTypeStop(...[configStop]);
         // console.log(configStop);
-        console.log(typeStop);
       }
     }
+  }
+
+  function GroupSort() {
+    console.log(configData);
   }
 
   function GenerateChart() {
     Converter();
     DataFilterType();
-    console.log(text)
+    GroupSort();
   }
+
+  const data = [
+    ["Year", "Sales", "Expenses"], //LABEL X, LABEL Y, PONTO
+    ["2004", 1000, 400],
+    ["2005", 1170, 460],
+    ["2006", 660, 1120],
+    ["2007", 1030, 540],
+  ];
+
+  const options = {
+    curveType: "function",
+    legend: { position: "right" },
+  };
 
   return (
     <div className="container">
       <h1>Gustavo Silva's Challenge</h1>
       <TextArea value={valor} onChange={(e) => setText(e.target.value)} />
-      <ResponsiveContainer>
+      <Chart
+        chartType="LineChart"
+        width="90%"
+        height="400px"
+        data={data}
+        options={options}
+      />
+
+      {/* <ResponsiveContainer>
         <LineChart
           width={600}
           height={300}
@@ -116,27 +129,20 @@ export default function Charts() {
           margin={{ top: 10, right: 20, left: 10, bottom: 5 }}
         >
           <XAxis dataKey="name" type="number" />
-          <YAxis dataKey="name" />
+          <YAxis />
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <Tooltip />
-
-          {data.map((val) => (
-            <Line
-              dataKey="value"
-              data={val.valor}
-              name={val.name}
-              key={val.name}
-            />
-          ))}
-
           <Legend
             layout="vertical"
             verticalAlign="middle"
             align="right"
             wrapperStyle={{ right: -80 }}
           />
+
+          <Line key="name" type="monotone" data="vv" stroke="red" />
+
         </LineChart>
-      </ResponsiveContainer>
+      </ResponsiveContainer> */}
       <div>
         <Button name="Generate Chart" onClick={GenerateChart} />
       </div>
