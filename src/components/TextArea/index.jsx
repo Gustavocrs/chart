@@ -8,7 +8,7 @@ export default function TextArea(props) {
       id="inputData"
       cols="30"
       rows="8"
-      placeholder="Entre com os dados aqui."
+      placeholder="Enter the data here."
       value={props.value}
       onChange={props.onChange}
     ></textarea>
