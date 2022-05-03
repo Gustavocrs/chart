@@ -67,7 +67,7 @@ export default function Charts() {
   function CompareByGroup(point1, point2) {
     for (let i = 0; i < typeStart.group.length; i++) {
       let g = typeStart.group[i];
-      if (point1[g] != point2[g]) {
+      if (point1[g] !== point2[g]) {
         return false;
       }
     }
@@ -117,10 +117,7 @@ export default function Charts() {
     return groups.join(" ");
   }
 
-  function GenerateChart() {
-    Converter();
-    DataFilterType();
-
+  function DataGraphic() {
     let data_graphic = [["Time"]];
     typeData.forEach((dt) => {
       typeStart.select.forEach((select) => {
@@ -133,6 +130,12 @@ export default function Charts() {
       });
     });
     setData(data_graphic);
+  }
+
+  function GenerateChart() {
+    Converter();
+    DataFilterType();
+    DataGraphic()
   }
 
   const options = {
