@@ -1,17 +1,5 @@
-// import "./Charts.css";
-// import {
-//   LineChart,
-//   CartesianGrid,
-//   XAxis,
-//   YAxis,
-//   Tooltip,
-//   Legend,
-//   Line,
-//   ResponsiveContainer,
-// } from "recharts";
-
+import "./Charts.css";
 import { Chart } from "react-google-charts";
-
 import { useState } from "react";
 import JSON5 from "json5";
 import Button from "../Button";
@@ -19,16 +7,15 @@ import TextArea from "../TextArea";
 
 export default function Charts() {
   const [text, setText] = useState([]);
-  const [dataPoints, setDataPoints] = useState([]);
-  const [typeStart, setTypeStart] = useState([]);
-  const [typeSpan, setTypeSpan] = useState([]);
-  const [typeData, setTypeData] = useState([]);
-  const [typeStop, setTypeStop] = useState([]);
+  const [data, setData] = useState([
+    ["Time", "L1", "L2"],
+    [0, 0, 0],
+    [1, 1, 1],
+  ]);
 
-  let configStart,
-    configSpan,
-    configData,
-    configStop = [];
+  let dataPoints;
+  let typeStart, typeSpan, typeStop;
+  let typeData = [];
 
   const valor = `{type: 'start', timestamp: 1519862400000,select: ['min_response_time', 'max_response_time'],group: ['os', 'browser']}
     {type: 'span', timestamp: 1519862400000, begin: 1519862400000, end: 1519862460000}
@@ -45,64 +32,108 @@ export default function Charts() {
   function Converter() {
     let convertedCode = "[" + valor.split("\n") + "]";
     convertedCode = JSON5.parse(convertedCode);
-    setDataPoints(convertedCode);
+    dataPoints = convertedCode;
   }
 
-  function DataFilterType() {
-    for (let i = 0; i < dataPoints.length; i++) {
-      if (dataPoints[i].type === "start") {
-        configStart = {
-          type: dataPoints[i].type,
-          timestamp: dataPoints[i].timestamp,
-          select: [dataPoints[i].select],
-          group: dataPoints[i].group,
-        };
-        // console.log(configStart);
-      } else if (dataPoints[i].type === "span") {
-        configSpan = {
-          type: dataPoints[i].type,
-          timestamp: dataPoints[i].timestamp,
-          begin: dataPoints[i].begin,
-          end: dataPoints[i].end,
-        };
-        // console.log(configSpan);
-      } else if (dataPoints[i].type === "data") {
-        configData = {
-          type: dataPoints[i].type,
-          timestamp: dataPoints[i].timestamp,
-          os: dataPoints[i].os,
-          browser: dataPoints[i].browser,
-          min_response_time: dataPoints[i].min_response_time,
-          max_response_time: dataPoints[i].max_response_time,
-        };
-        // console.log(configData);
-      } else if (dataPoints[i].type === "stop") {
-        configStop = {
-          type: dataPoints[i].type,
-          timestamp: dataPoints[i].timestamp,
-        };
-        // console.log(configStop);
+  function AddStart(point) {
+    typeStart = {
+      type: point.type,
+      timestamp: point.timestamp,
+      select: point.select,
+      group: point.group,
+    };
+  }
+
+  function AddSpan(point) {
+    typeSpan = {
+      type: point.type,
+      timestamp: point.timestamp,
+      begin: point.begin,
+      end: point.end,
+    };
+  }
+
+  function AddData(point) {
+    for (let i = 0; i < typeData.length; i++) {
+      let pt = typeData[i];
+      if (CompareByGroup(pt, point)) {
+        typeData[i] = AddBySelect(pt, point);
+        return;
       }
+    }
+    typeData.push(point);
+  }
+
+  function CompareByGroup(point1, point2) {
+    for (let i = 0; i < typeStart.group.length; i++) {
+      let g = typeStart.group[i];
+      if (point1[g] != point2[g]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function AddBySelect(point1, point2) {
+    for (let i = 0; i < typeStart.select.length; i++) {
+      let s = typeStart.select[i];
+      if (typeof point1[s] == typeof []) {
+        point1[s].push(point2[s]);
+      } else {
+        point1[s] = [point1[s], point2[s]];
+      }
+    }
+    return point1;
+  }
+
+  function AddStop(point) {
+    typeStop = {
+      type: point.type,
+      timestamp: point.timestamp,
+    };
+  }
+
+  const TYPES = {
+    start: AddStart,
+    span: AddSpan,
+    data: AddData,
+    stop: AddStop,
+  };
+
+  function DataFilterType() {
+    typeData = [];
+    for (let i = 0; i < dataPoints.length; i++) {
+      let point = dataPoints[i];
+      TYPES[point.type](point);
     }
   }
 
-  function GroupSort() {
-    console.log(configData);
+  function GetGroup(point) {
+    let groups = [];
+    for (let i = 0; i < typeStart.group.length; i++) {
+      let g = typeStart.group[i];
+      groups.push(point[g]);
+    }
+    return groups.join(" ");
   }
 
   function GenerateChart() {
     Converter();
     DataFilterType();
-    GroupSort();
-  }
 
-  const data = [
-    ["Year", "Sales", "Expenses"], //LABEL X, LABEL Y, PONTO
-    ["2004", 1000, 400],
-    ["2005", 1170, 460],
-    ["2006", 660, 1120],
-    ["2007", 1030, 540],
-  ];
+    let data_graphic = [["Time"]];
+    typeData.forEach((dt) => {
+      typeStart.select.forEach((select) => {
+        data_graphic[0].push(GetGroup(dt) + " " + select);
+        dt[select].forEach((y, index) => {
+          data_graphic[index + 1]
+            ? data_graphic[index + 1]?.push(y)
+            : data_graphic.push([index, y]);
+        });
+      });
+    });
+    setData(data_graphic);
+  }
 
   const options = {
     curveType: "function",
@@ -120,71 +151,9 @@ export default function Charts() {
         data={data}
         options={options}
       />
-
-      {/* <ResponsiveContainer>
-        <LineChart
-          width={600}
-          height={300}
-          data={data}
-          margin={{ top: 10, right: 20, left: 10, bottom: 5 }}
-        >
-          <XAxis dataKey="name" type="number" />
-          <YAxis />
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <Tooltip />
-          <Legend
-            layout="vertical"
-            verticalAlign="middle"
-            align="right"
-            wrapperStyle={{ right: -80 }}
-          />
-
-          <Line key="name" type="monotone" data="vv" stroke="red" />
-
-        </LineChart>
-      </ResponsiveContainer> */}
       <div>
         <Button name="Generate Chart" onClick={GenerateChart} />
       </div>
     </div>
   );
 }
-
-// function compareByGroup(point1, point2) {
-//   for (let j = 0; j < group.length; j++) {
-//     let g = group[j];
-//     if (point1[g] != point2[g]) {
-//       return false;
-//     }
-//   }
-//   return true;
-// }
-
-// function addBySelect(point1, point2) {
-//   console.log(select)
-//   for (let j = 0; j < select.length; j++) {
-//     let s = select[j];
-//     if (typeof point1[s] == typeof []) {
-//       point1[s].push(point2[s]);
-//     } else {
-//       point1[s] = [point1[s], point2[s]];
-//     }
-//   }
-//   return point1;
-// }
-
-// function typeData(comando) {
-// let add = true;
-// for (let i = 0; i < dataPoints.length; i++) {
-//   let point = dataPoints[i];
-//   if (compareByGroup(comando, point)) {
-//     add = false;
-//     addBySelect(point, comando);
-//   }
-// }
-// if (add) {
-//   dataPoints.push(comando);
-//   console.log(comando);
-//   // console.log(dataPoints);
-// }
-// }
