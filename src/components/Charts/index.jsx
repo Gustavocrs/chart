@@ -27,7 +27,8 @@ export default function Charts() {
     {type: 'data', timestamp: 1519862460000, os: 'mac', browser: 'chrome', min_response_time: 0.1, max_response_time: 1.0}
     {type: 'data', timestamp: 1519862460000, os: 'mac', browser: 'firefox', min_response_time: 0.2, max_response_time: 1.1}
     {type: 'data', timestamp: 1519862460000, os: 'linux', browser: 'firefox', min_response_time: 0.3, max_response_time: 1.4}
-    {type: 'stop', timestamp: 1519862460000}`;
+    {type: 'stop', timestamp: 1519862460000}`
+
 
   function Converter() {
     let convertedCode = "[" + valor.split("\n") + "]";
@@ -42,6 +43,7 @@ export default function Charts() {
       select: point.select,
       group: point.group,
     };
+    console.log(typeStart)
   }
 
   function AddSpan(point) {
@@ -51,6 +53,7 @@ export default function Charts() {
       begin: point.begin,
       end: point.end,
     };
+    console.log(typeSpan)
   }
 
   function AddData(point) {
@@ -91,6 +94,7 @@ export default function Charts() {
       type: point.type,
       timestamp: point.timestamp,
     };
+    console.log(typeStop)
   }
 
   const TYPES = {
@@ -131,9 +135,11 @@ export default function Charts() {
     });
     setData(data_graphic);
   }
+  function GroupSort() {} //ORDENAR TODOS OS PONTOS POR TIMESTAMP DO TIPO DATA
 
   function GenerateChart() {
     Converter();
+    // GroupSort();
     DataFilterType();
     DataGraphic()
   }
