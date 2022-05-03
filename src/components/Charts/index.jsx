@@ -134,7 +134,7 @@ export default function Charts() {
     });
     setData(data_graphic);
   }
-  function sortByKey(array, key) {
+  function SortByKey(array, key) {
     return array.sort(function (a, b) {
       var x = a[key];
       var y = b[key];
@@ -143,7 +143,7 @@ export default function Charts() {
   }
 
   function GroupSort() {
-    dataPoints = sortByKey(dataPoints, "timestamp");
+    dataPoints = SortByKey(dataPoints, "timestamp");
   }
 
   function GenerateChart() {
