@@ -4,19 +4,16 @@
 <h3>Junior Frontend Developer / Desenvolvedor Frontend Júnior</h3>
 <p>
 <h4><em>English</em></h4>
-Challenge made for the junior frontend developer vacancy, at Intelie company.
-The challenge is to plot a graph, based on the information received from data input via text.
+Challenge accomplished for the junior frontend developer job opportunity, at Intelie company. The challenge is plotting a graph, based on information received from data input by text.
+I worked on some technologies from my training, such as React, Javascript, HTML and CSS. During the code’s structuring, I had no difficulty, as beying used to it.
+Regarding the use of graphics, I had some doubts, solving them after searchs at platforms like Google and Stackoverflow, as these lib were not explored during my graduation.
+Some graphing functions were the biggest challenge of the test, for me.
 
-I used some technologies from my training, such as React, Javascript, HTML and CSS. During the structuring of the code, I had no difficulty, as I consider myself used to it.
-
-Regarding the use of graphics, I had some points of doubt, where I turned to platforms like Google and Stackoverflow to solve them, as these resources were not explored during my training.
-
-Some functions for graphing were the biggest test challenges for me.
-
-The logic requested was complex to my first understanding of the challenge, but after rereading it a few times, I managed to understand how the test proposal worked. Even with the difficulties encountered along the way, I believe I have finished the test with an 80% success rate.
+At first, during the challenge, the requested logic seemed complex; but after rereading it a few times, I managed to understand it’s proposal. Even along the difficulties encountered in the way, I suppose I finished the test with 80% success rate. 
 
 <h4><em>Portugues(Brasil)</em></h4>
 Desafio realizado para a vaga de desenvolvedor frontend júnior, na empresa Intelie.
+
 O desafio consiste em plotar um gráfico, baseado nas informações recebidas de uma entrada de dados via text.
 
 Utilizei algumas tecnologias de minha formação, como React, Javascript, HTML e CSS. Durante a estruturação do código, não tive nenhuma dificuldade, pois considero-me habituado a tal.
@@ -25,7 +22,8 @@ Referente a utilização de gráficos, tive alguns pontos de dúvida, onde recor
 
 Algumas funções para montagem do gráfico foram os maiores desafios do teste para mim.
 
-A lógica solicitada foi complexa ao meu primeiro entendimento do desafio, mas após reler algumas vezes, consegui entender como funcionava a proposta do teste. Mesmo com as dificuldades encontradas no caminho, acredito ter finalizado o teste com 80% de aproveitamento.
+No primeiro momento, a lógica solicitada pareceu complexa; mas, após reler algumas vezes, consegui entender a sua proposta.
+
 </p>
 
 <h3>Access the project / Acesse o projeto</h3><a href="https://gustavocrs.github.io/chart/">Click here / Clique Aqui</a>
