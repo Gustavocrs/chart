@@ -6,6 +6,7 @@ import Button from "../Button";
 import TextArea from "../TextArea";
 
 export default function Charts() {
+  // eslint-disable-next-line
   const [text, setText] = useState([]);
   const [data, setData] = useState([
     ["Time", "L1", "L2"],
