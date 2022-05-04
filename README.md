@@ -4,9 +4,14 @@
 <h3>Junior Frontend Developer / Desenvolvedor Frontend Júnior</h3>
 <p>
 <h4><em>English</em></h4>
-Challenge accomplished for the junior frontend developer job opportunity, at Intelie company. The challenge is plotting a graph, based on information received from data input by text.
+Challenge accomplished for the junior frontend developer job opportunity, at Intelie company. 
+
+The challenge is plotting a graph, based on information received from data input by text.
+
 I worked on some technologies from my training, such as React, Javascript, HTML and CSS. During the code’s structuring, I had no difficulty, as beying used to it.
+
 Regarding the use of graphics, I had some doubts, solving them after searchs at platforms like Google and Stackoverflow, as these lib were not explored during my graduation.
+
 Some graphing functions were the biggest challenge of the test, for me.
 
 At first, during the challenge, the requested logic seemed complex; but after rereading it a few times, I managed to understand it’s proposal. Even along the difficulties encountered in the way, I suppose I finished the test with 80% success rate. 
