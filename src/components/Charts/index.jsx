@@ -162,7 +162,7 @@ export default function Charts() {
   return (
     <div className="container">
       <h1>Gustavo Silva's Challenge</h1>
-      <TextArea value={text} onChange={(e) => setText(e.target.value)} />
+      <TextArea value={valor} onChange={(e) => setText(e.target.value)} />
       <Chart
         chartType="LineChart"
         width="90%"
